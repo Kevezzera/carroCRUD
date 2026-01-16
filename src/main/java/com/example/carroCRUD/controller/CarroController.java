@@ -25,7 +25,7 @@ public class CarroController {
             String mensagem = this.carroService.save(carro);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>((HttpHeaders) null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Deu erro", HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -16,11 +16,23 @@ public class CarroService {
     private CarroRepository carroRepository;
 
     public String save(Carro carro){
+
+        this.verificarNomeCarro(carro.getNome(), carro.getAno());
+
         this.carroRepository.save(carro);
         return "Carro salvo no dba!";
     }
 
+    public boolean verificarNomeCarro(String nome, int ano){
+        if (nome.equals("jeep compass") && ano < 2006) {
+            throw new RuntimeException();
+        }
+        return true;
+    }
+
     public String update(Carro carro, long id){
+
+        this.verificarNomeCarro(carro.getNome(), carro.getAno());
         carro.setId(id);
         this.carroRepository.save(carro);
         return "Carro atualizado no dba";
@@ -47,6 +59,7 @@ public class CarroService {
 
     public List<Carro> findByMarca(Long idMarca){
         Marca marca = new Marca();
+        marca.setId(idMarca);
         return this.carroRepository.findByMarca(marca);
     }
 
